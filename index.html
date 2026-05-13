@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stay aware.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 
@@ -53,9 +53,9 @@ header{
   gap:1rem;
 }
 .wordmark{
-  font-family:'Caveat',cursive;
-  font-size:2.8rem;
-  font-weight:600;
+  font-family:'Playfair Display',serif;
+  font-size:2.6rem;
+  font-weight:700;
   color:var(--ink);
   line-height:1;
   letter-spacing:-0.02em;
@@ -351,7 +351,7 @@ header{
 
 <div class="compose-wrap">
   <div class="compose">
-    <textarea id="noteInput" placeholder="something you need to hear again…" maxlength="300"></textarea>
+    <textarea id="noteInput" placeholder="remember …" maxlength="300"></textarea>
     <div class="compose-bar">
       <span class="cc" id="cc">0 / 300</span>
       <button class="btn-pin" id="pinBtn" onclick="addNote()">pin it</button>
@@ -394,11 +394,23 @@ function saveUrl(){
 async function load(){
   setStatus('loading…');
   try{
-    const r=await fetch(API+'?action=get');
-    const d=await r.json();
-    notes=d.notes||[];
+    const data=await jsonp(API+'?action=get&callback=__cb__');
+    notes=data.notes||[];
     render(notes);
-  }catch{setStatus('could not reach the sheet — check your URL')}
+  }catch(e){setStatus('could not reach the sheet — check your URL')}
+}
+
+function jsonp(url){
+  return new Promise((resolve,reject)=>{
+    const name='__cb__';
+    if(window[name]) delete window[name];
+    const s=document.createElement('script');
+    const timer=setTimeout(()=>{s.remove();reject(new Error('timeout'))},8000);
+    window[name]=function(data){clearTimeout(timer);s.remove();delete window[name];resolve(data)};
+    s.onerror=()=>{clearTimeout(timer);s.remove();reject(new Error('load error'))};
+    s.src=url;
+    document.head.appendChild(s);
+  });
 }
 
 function render(list){
@@ -448,7 +460,7 @@ async function addNote(){
   const btn=document.getElementById('pinBtn');
   btn.disabled=true; btn.textContent='pinning…';
   try{
-    await fetch(API,{method:'POST',body:JSON.stringify({action:'add',content:txt,timestamp:new Date().toISOString(),parent_id:'',remind_count:0})});
+    await fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'add',content:txt,timestamp:new Date().toISOString(),parent_id:'',remind_count:0})});
     document.getElementById('noteInput').value='';
     document.getElementById('cc').textContent='0 / 300';
     toast('pinned');
@@ -463,7 +475,7 @@ async function bump(id){
   n.remind_count=newCount;
   render(notes);
   try{
-    await fetch(API,{method:'POST',body:JSON.stringify({action:'increment',id})});
+    await fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'increment',id})});
   }catch{toast('could not save — check connection')}
 }
 
