@@ -14,8 +14,8 @@
   --ink3:#a08858;
   --ink4:#c8ae82;
   --ink5:#e2d4b8;
-  --gold:#b8862a;
-  --gold2:#d4a03a;
+  --gold:#c9a96e;
+  --gold2:#b8922a;
   --surface:#fffdf7;
   --border:rgba(160,136,88,0.16);
   --borderh:rgba(160,136,88,0.32);
@@ -47,12 +47,12 @@ header{
 .logo{
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
   font-size:2.6rem;
-  font-weight:700;
+  font-weight:500;
   line-height:1;
-  letter-spacing:-0.03em;
+  letter-spacing:-0.025em;
   color:var(--ink);
 }
-.logo em{font-style:normal;color:var(--gold)}
+.logo em{font-style:normal;color:var(--ink3);font-weight:400}
 .sub{
   font-size:0.65rem;
   letter-spacing:0.3em;
@@ -177,6 +177,7 @@ header{
 }
 .note-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .note-time{font-size:0.62rem;color:var(--ink5);letter-spacing:0.08em}
+.note-actions{display:flex;align-items:center;gap:6px}
 .bump{
   display:inline-flex;align-items:center;gap:4px;
   padding:2px 9px 2px 7px;border-radius:8px;
@@ -204,6 +205,82 @@ header{
 .status-wrap p{
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   font-style:italic;font-size:0.9rem;color:var(--ink4);letter-spacing:0.04em;
+}
+
+.del{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:6px;
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--ink5);
+  cursor:pointer;
+  transition:all 0.15s;
+  flex-shrink:0;
+}
+.del:hover{border-color:rgba(180,60,60,0.2);background:rgba(255,240,240,0.8);color:#c04040}
+.del:active{transform:scale(0.9)}
+
+/* confirm modal */
+.veil{
+  display:none;position:fixed;inset:0;
+  background:rgba(26,18,8,0.28);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  z-index:400;align-items:center;justify-content:center;padding:1.5rem;
+}
+.veil.open{display:flex}
+.modal{
+  background:#fffdf6;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:1.6rem 1.5rem 1.3rem;
+  max-width:340px;width:100%;
+  box-shadow:0 20px 56px rgba(100,60,10,0.14);
+}
+.modal-eye{
+  font-size:0.64rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:0.4rem;
+}
+.modal-title{
+  font-size:1.1rem;font-weight:600;color:var(--ink);
+  margin-bottom:0.75rem;letter-spacing:-0.01em;
+}
+.modal-preview{
+  background:var(--n2);border:1px solid rgba(200,168,100,0.18);
+  border-radius:10px;padding:0.8rem 0.95rem;
+  font-size:0.88rem;color:var(--ink2);line-height:1.7;
+  margin-bottom:1.2rem;
+  max-height:120px;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;
+}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end}
+.btn-cancel{
+  height:33px;padding:0 1rem;border-radius:10px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--ink3);font-size:0.76rem;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  transition:border-color 0.15s;
+}
+.btn-cancel:hover{border-color:var(--ink3);color:var(--ink2)}
+.btn-del-confirm{
+  height:33px;padding:0 1.1rem;border-radius:10px;border:none;
+  background:#c04040;color:#fff;font-size:0.76rem;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-weight:500;letter-spacing:0.04em;transition:background 0.15s;
+}
+.btn-del-confirm:hover{background:#a83535}
+
+/* ── confetti ── */
+@keyframes burst{
+  0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}
+}
+.particle{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:1000;
+  animation:burst 0.7s cubic-bezier(.25,.46,.45,.94) forwards;
 }
 
 .snack{
@@ -251,6 +328,18 @@ header{
 </div>
 <div id="boardWrap">
   <div class="status-wrap"><p>connect your sheet above to begin</p></div>
+</div>
+
+<div class="veil" id="veil">
+  <div class="modal">
+    <div class="modal-eye">delete note</div>
+    <div class="modal-title">Remove this?</div>
+    <div class="modal-preview" id="modalPreview"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">keep it</button>
+      <button class="btn-del-confirm" onclick="confirmDelete()">delete</button>
+    </div>
+  </div>
 </div>
 
 <div class="snack" id="snack"></div>
@@ -327,10 +416,15 @@ function render(list){
       <div class="note-body">${esc(n.content)}</div>
       <div class="note-foot">
         <span class="note-time">${fmt(n.timestamp)}</span>
-        <button class="bump ${cls}" onclick="bump('${n.id}')">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 5a3.5 3.5 0 1 1-.9-2.3"/><polyline points="8.5,1.2 8.5,3.2 6.5,3.2"/></svg>
-          <span class="num">${rc}</span>
-        </button>
+        <div class="note-actions">
+          <button class="bump ${cls}" onclick="bump('${n.id}')">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 5a3.5 3.5 0 1 1-.9-2.3"/><polyline points="8.5,1.2 8.5,3.2 6.5,3.2"/></svg>
+            <span class="num">${rc}</span>
+          </button>
+          <button class="del" onclick="askDelete('${n.id}')" title="delete">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="2" y1="2" x2="9" y2="9"/><line x1="9" y1="2" x2="2" y2="9"/></svg>
+          </button>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -353,6 +447,7 @@ async function addNote(){
     await fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'add',content:txt,timestamp:new Date().toISOString(),parent_id:'',remind_count:0})});
     document.getElementById('noteInput').value='';
     document.getElementById('cc').textContent='0 / 300';
+    confetti(btn);
     toast('pinned');
     setTimeout(load,900);
   }catch(e){toast('could not save')}
@@ -388,6 +483,60 @@ function toast(msg){
   s.textContent=msg;s.classList.add('show');
   setTimeout(()=>s.classList.remove('show'),2400);
 }
+
+function confetti(originEl){
+  const rect=originEl.getBoundingClientRect();
+  const cx=rect.left+rect.width/2;
+  const cy=rect.top+rect.height/2;
+  const colors=['#e8c97a','#d4a96a','#c8b88a','#f0d898','#b8a060','#e0c070','#f5e0a0'];
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const angle=Math.random()*Math.PI*2;
+    const dist=40+Math.random()*60;
+    p.style.cssText=`
+      left:${cx-3}px;top:${cy-3}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      --tx:${Math.cos(angle)*dist}px;
+      --ty:${Math.sin(angle)*dist}px;
+      animation-duration:${0.5+Math.random()*0.4}s;
+      animation-delay:${Math.random()*0.08}s;
+      width:${4+Math.random()*5}px;
+      height:${4+Math.random()*5}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+    `;
+    document.body.appendChild(p);
+    p.addEventListener('animationend',()=>p.remove());
+  }
+}
+
+function askDelete(id){
+  const n=notes.find(x=>x.id===id);if(!n)return;
+  pendingDeleteId=id;
+  document.getElementById('modalPreview').textContent=n.content;
+  document.getElementById('veil').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('veil').classList.remove('open');
+  pendingDeleteId=null;
+}
+
+async function confirmDelete(){
+  if(!pendingDeleteId)return;
+  const id=pendingDeleteId;
+  closeModal();
+  notes=notes.filter(x=>x.id!==id);
+  render(notes);
+  try{
+    await fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'delete',id})});
+    toast('deleted');
+  }catch(e){toast('could not delete')}
+}
+
+document.getElementById('veil').addEventListener('click',function(e){
+  if(e.target===this)closeModal();
+});
 
 boot();
 </script>
