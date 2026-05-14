@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stay aware.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -22,7 +21,7 @@
   --borderh:rgba(160,136,88,0.32);
   --n0:#fffcf0;--n1:#fef9e6;--n2:#fdf6e0;--n3:#fef8ec;--n4:#fffae8;--n5:#fdf5e2;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   background:var(--bg);
   background-image:
@@ -30,7 +29,7 @@ body{
     radial-gradient(ellipse 55% 50% at 92% 95%,#f5e4c0 0%,transparent 60%),
     radial-gradient(ellipse 40% 40% at 50% 50%,#faf8f2 0%,transparent 70%);
   min-height:100vh;
-  font-family:'DM Sans',sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   color:var(--ink);
 }
 
@@ -46,14 +45,14 @@ header{
   border-bottom:1px solid var(--border);
 }
 .logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3.2rem;
-  font-weight:300;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
+  font-size:2.6rem;
+  font-weight:700;
   line-height:1;
   letter-spacing:-0.03em;
   color:var(--ink);
 }
-.logo em{font-style:italic;color:var(--gold);font-weight:300}
+.logo em{font-style:normal;color:var(--gold)}
 .sub{
   font-size:0.65rem;
   letter-spacing:0.3em;
@@ -75,15 +74,17 @@ header{
   flex:1;min-width:180px;height:32px;
   border:1px solid var(--border);border-radius:6px;
   padding:0 0.7rem;font-size:0.77rem;color:var(--ink);
-  background:#fffdf8;outline:none;font-family:'DM Sans',sans-serif;
+  background:#fffdf8;outline:none;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   transition:border-color 0.15s;
 }
 .setup-inner input:focus{border-color:var(--gold)}
 .btn-sm{
   height:32px;padding:0 1rem;border-radius:6px;
   border:1px solid var(--gold);background:transparent;color:var(--gold);
-  font-size:0.72rem;font-family:'DM Sans',sans-serif;font-weight:500;
-  letter-spacing:0.07em;cursor:pointer;white-space:nowrap;transition:all 0.15s;
+  font-size:0.72rem;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-weight:500;letter-spacing:0.07em;cursor:pointer;white-space:nowrap;transition:all 0.15s;
 }
 .btn-sm:hover{background:var(--gold);color:#fff}
 
@@ -103,11 +104,11 @@ header{
   display:block;width:100%;min-height:88px;
   padding:1.15rem 1.5rem 0.6rem;
   border:none;background:transparent;
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.18rem;font-weight:300;color:var(--ink);
-  resize:none;outline:none;line-height:1.85;letter-spacing:0.01em;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-size:1rem;font-weight:400;color:var(--ink);
+  resize:none;outline:none;line-height:1.75;letter-spacing:0;
 }
-.compose textarea::placeholder{color:var(--ink5);font-style:italic}
+.compose textarea::placeholder{color:var(--ink5);font-style:normal}
 .compose-bar{
   display:flex;align-items:center;justify-content:space-between;
   padding:0.5rem 1.2rem 0.65rem;
@@ -117,8 +118,9 @@ header{
 .btn-post{
   height:33px;padding:0 1.4rem;border-radius:17px;border:none;
   background:var(--ink);color:#faf6ef;
-  font-size:0.74rem;font-family:'DM Sans',sans-serif;font-weight:500;
-  letter-spacing:0.1em;cursor:pointer;
+  font-size:0.74rem;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-weight:500;letter-spacing:0.1em;cursor:pointer;
   transition:background 0.15s,transform 0.12s;
 }
 .btn-post:hover{background:var(--ink2);transform:translateY(-1px)}
@@ -168,9 +170,9 @@ header{
   border-radius:1px;border:1px solid rgba(196,172,116,0.26);
 }
 .note-body{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1rem;font-weight:400;line-height:1.88;
-  color:var(--ink);letter-spacing:0.01em;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-size:0.92rem;font-weight:400;line-height:1.75;
+  color:var(--ink);letter-spacing:0;
   margin-bottom:0.85rem;white-space:pre-wrap;word-break:break-all;
 }
 .note-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
@@ -181,8 +183,8 @@ header{
   border:1px solid rgba(180,148,80,0.22);
   background:rgba(255,250,232,0.55);
   color:var(--ink3);font-size:0.65rem;
-  font-family:'DM Sans',sans-serif;letter-spacing:0.05em;
-  cursor:pointer;user-select:none;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  letter-spacing:0.05em;cursor:pointer;user-select:none;
   transition:all 0.18s;
 }
 .bump:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,248,215,0.9)}
@@ -200,13 +202,13 @@ header{
   max-width:900px;margin:0 auto;padding:4rem 2.5rem;text-align:center;
 }
 .status-wrap p{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:1rem;color:var(--ink4);letter-spacing:0.06em;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+  font-style:italic;font-size:0.9rem;color:var(--ink4);letter-spacing:0.04em;
 }
 
 .snack{
   position:fixed;bottom:2rem;left:50%;
-  transform:translateX(-50%) translateY(56px);
+  transform:translateX(-50%) translateY(80px);
   background:var(--ink);color:rgba(250,246,235,0.92);
   padding:0.46rem 1.3rem;border-radius:20px;
   font-size:0.7rem;letter-spacing:0.09em;
