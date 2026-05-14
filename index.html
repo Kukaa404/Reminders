@@ -37,7 +37,7 @@ body{
 header{
   max-width:900px;
   margin:0 auto;
-  padding:4rem 2.5rem 2.2rem;
+  padding:3.5rem 2.5rem 2rem;
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
@@ -46,14 +46,33 @@ header{
   border-bottom:1px solid var(--border);
 }
 .logo{
-  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
-  font-size:2.6rem;
-  font-weight:600;
+  display:flex;
+  flex-direction:column;
+  gap:0;
   line-height:1;
-  letter-spacing:0.04em;
-  color:var(--ink);
 }
-.logo em{font-style:normal;color:var(--blue);font-weight:400;letter-spacing:0.08em}
+.logo-stay{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
+  font-size:0.68rem;
+  font-weight:500;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:var(--ink4);
+  margin-bottom:0.3rem;
+}
+.logo-aware{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
+  font-size:3rem;
+  font-weight:600;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  line-height:0.95;
+}
+.logo-aware span{
+  color:var(--blue);
+  font-weight:300;
+  font-style:italic;
+}
 .sub{
   font-size:0.65rem;
   letter-spacing:0.3em;
@@ -294,7 +313,10 @@ header{
 <body>
 
 <header>
-  <div class="logo">Stay <em>aware.</em></div>
+  <div class="logo">
+    <div class="logo-stay">Stay</div>
+    <div class="logo-aware">aware<span>.</span></div>
+  </div>
   <div class="sub">One bit at a time.</div>
 </header>
 
