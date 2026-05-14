@@ -8,27 +8,27 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f7f9fc;
-  --ink:#141e2e;
-  --ink2:#2d4a6e;
-  --ink3:#7a9abf;
-  --ink4:#a8c0d8;
-  --ink5:#d4e3f0;
-  --blue:#4a7fa8;
-  --blue2:#3a6a90;
-  --bluelt:#e8f2fa;
-  --surface:#ffffff;
-  --border:rgba(100,148,196,0.15);
-  --borderh:rgba(100,148,196,0.32);
-  --n0:#f0f7ff;--n1:#eef5fc;--n2:#f4f8fb;--n3:#e8f4ff;--n4:#f0f6fa;--n5:#eaf3fb;
+  --bg:#faf6ef;
+  --ink:#1a1208;
+  --ink2:#5c4a2a;
+  --ink3:#a08858;
+  --ink4:#c8ae82;
+  --ink5:#e2d4b8;
+  --gold:#c9a96e;
+  --gold2:#b8922a;
+  --blue:#6a9fc0;
+  --surface:#fffdf7;
+  --border:rgba(160,136,88,0.16);
+  --borderh:rgba(160,136,88,0.32);
+  --n0:#fffcf0;--n1:#fef9e6;--n2:#fdf6e0;--n3:#fef8ec;--n4:#fffae8;--n5:#fdf5e2;
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   background:var(--bg);
   background-image:
-    radial-gradient(ellipse 70% 55% at 5% 0%,#ddeeff 0%,transparent 60%),
-    radial-gradient(ellipse 55% 50% at 95% 90%,#d8eaf8 0%,transparent 60%),
-    radial-gradient(ellipse 45% 40% at 55% 45%,#f0f6ff 0%,transparent 65%);
+    radial-gradient(ellipse 70% 55% at 8% 0%,#f8edcc 0%,transparent 60%),
+    radial-gradient(ellipse 55% 50% at 92% 95%,#f5e4c0 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,#faf8f2 0%,transparent 70%);
   min-height:100vh;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   color:var(--ink);
@@ -50,10 +50,10 @@ header{
   font-size:2.6rem;
   font-weight:600;
   line-height:1;
-  letter-spacing:-0.025em;
+  letter-spacing:0.04em;
   color:var(--ink);
 }
-.logo em{font-style:normal;color:var(--blue);font-weight:400}
+.logo em{font-style:normal;color:var(--blue);font-weight:400;letter-spacing:0.08em}
 .sub{
   font-size:0.65rem;
   letter-spacing:0.3em;
@@ -66,7 +66,7 @@ header{
 .setup-inner{
   display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;
   padding:0.85rem 1.2rem;
-  background:rgba(240,247,255,0.8);
+  background:rgba(255,252,240,0.7);
   border:1px dashed var(--borderh);
   border-radius:10px;
 }
@@ -75,19 +75,19 @@ header{
   flex:1;min-width:180px;height:32px;
   border:1px solid var(--border);border-radius:6px;
   padding:0 0.7rem;font-size:0.77rem;color:var(--ink);
-  background:#fff;outline:none;
+  background:#fffdf8;outline:none;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   transition:border-color 0.15s;
 }
-.setup-inner input:focus{border-color:var(--blue)}
+.setup-inner input:focus{border-color:var(--gold)}
 .btn-sm{
   height:32px;padding:0 1rem;border-radius:6px;
-  border:1px solid var(--blue);background:transparent;color:var(--blue);
+  border:1px solid var(--gold);background:transparent;color:var(--gold);
   font-size:0.72rem;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   font-weight:500;letter-spacing:0.07em;cursor:pointer;white-space:nowrap;transition:all 0.15s;
 }
-.btn-sm:hover{background:var(--blue);color:#fff}
+.btn-sm:hover{background:var(--gold);color:#fff}
 
 .compose-wrap{max-width:900px;margin:1.8rem auto 0;padding:0 2.5rem}
 .compose{
@@ -99,7 +99,7 @@ header{
 }
 .compose:focus-within{
   border-color:var(--borderh);
-  box-shadow:0 4px 28px rgba(74,127,168,0.1);
+  box-shadow:0 4px 28px rgba(160,120,40,0.08);
 }
 .compose textarea{
   display:block;width:100%;min-height:88px;
@@ -118,13 +118,13 @@ header{
 .cc{font-size:0.66rem;color:var(--ink5);letter-spacing:0.05em}
 .btn-post{
   height:33px;padding:0 1.4rem;border-radius:17px;border:none;
-  background:var(--blue);color:#fff;
+  background:var(--ink);color:#faf6ef;
   font-size:0.74rem;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
-  font-weight:500;letter-spacing:0.08em;cursor:pointer;
+  font-weight:500;letter-spacing:0.1em;cursor:pointer;
   transition:background 0.15s,transform 0.12s;
 }
-.btn-post:hover{background:var(--blue2);transform:translateY(-1px)}
+.btn-post:hover{background:var(--ink2);transform:translateY(-1px)}
 .btn-post:active{transform:translateY(0)}
 .btn-post:disabled{opacity:0.28;cursor:not-allowed;transform:none}
 
@@ -156,19 +156,19 @@ header{
   position:relative;
   transition:transform 0.25s cubic-bezier(.22,.68,0,1.2),box-shadow 0.25s;
 }
-.note:hover{transform:translateY(-6px) rotate(-0.3deg);box-shadow:0 18px 44px rgba(60,100,160,0.1);z-index:2}
-.note.c0{background:var(--n0);border-color:rgba(100,158,210,0.18)}
-.note.c1{background:var(--n1);border-color:rgba(96,152,204,0.18)}
-.note.c2{background:var(--n2);border-color:rgba(104,160,208,0.16)}
-.note.c3{background:var(--n3);border-color:rgba(96,156,214,0.2)}
-.note.c4{background:var(--n4);border-color:rgba(100,154,206,0.18)}
-.note.c5{background:var(--n5);border-color:rgba(98,158,210,0.18)}
+.note:hover{transform:translateY(-6px) rotate(-0.3deg);box-shadow:0 18px 44px rgba(100,72,20,0.1);z-index:2}
+.note.c0{background:var(--n0);border-color:rgba(200,174,120,0.2)}
+.note.c1{background:var(--n1);border-color:rgba(196,168,112,0.2)}
+.note.c2{background:var(--n2);border-color:rgba(192,164,108,0.2)}
+.note.c3{background:var(--n3);border-color:rgba(200,172,118,0.2)}
+.note.c4{background:var(--n4);border-color:rgba(198,170,114,0.2)}
+.note.c5{background:var(--n5);border-color:rgba(194,166,110,0.2)}
 
 .tape{
   position:absolute;top:-9px;left:50%;transform:translateX(-50%);
   width:32px;height:16px;
-  background:rgba(180,210,240,0.45);
-  border-radius:1px;border:1px solid rgba(140,185,225,0.3);
+  background:rgba(232,216,168,0.52);
+  border-radius:1px;border:1px solid rgba(196,172,116,0.26);
 }
 .note-body{
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
@@ -182,23 +182,23 @@ header{
 .bump{
   display:inline-flex;align-items:center;gap:4px;
   padding:2px 9px 2px 7px;border-radius:8px;
-  border:1px solid rgba(100,158,210,0.24);
-  background:rgba(230,242,252,0.6);
+  border:1px solid rgba(180,148,80,0.22);
+  background:rgba(255,250,232,0.55);
   color:var(--ink3);font-size:0.65rem;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   letter-spacing:0.05em;cursor:pointer;user-select:none;
   transition:all 0.18s;
 }
-.bump:hover{border-color:var(--blue);color:var(--blue);background:rgba(220,238,252,0.9)}
+.bump:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,248,215,0.9)}
 .bump:active{transform:scale(0.92)}
 .bump .num{
   font-size:0.72rem;font-weight:500;color:var(--ink2);
   min-width:8px;text-align:center;transition:color 0.15s;
 }
-.bump.warm{border-color:rgba(74,127,168,0.38);background:rgba(210,232,248,0.8)}
-.bump.warm .num{color:var(--blue)}
-.bump.hot{border-color:rgba(58,106,144,0.55);background:rgba(195,225,248,0.92)}
-.bump.hot .num{color:var(--blue2);font-weight:600}
+.bump.warm{border-color:rgba(184,134,42,0.34);background:rgba(255,246,210,0.8)}
+.bump.warm .num{color:var(--gold)}
+.bump.hot{border-color:rgba(184,134,42,0.52);background:rgba(254,243,190,0.92)}
+.bump.hot .num{color:var(--gold2);font-weight:600}
 
 .status-wrap{
   max-width:900px;margin:0 auto;padding:4rem 2.5rem;text-align:center;
@@ -219,18 +219,18 @@ header{
 
 .veil{
   display:none;position:fixed;inset:0;
-  background:rgba(14,28,50,0.3);
+  background:rgba(26,18,8,0.28);
   backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
   z-index:400;align-items:center;justify-content:center;padding:1.5rem;
 }
 .veil.open{display:flex}
 .modal{
-  background:#fff;
+  background:#fffdf6;
   border:1px solid var(--border);
   border-radius:18px;
   padding:1.6rem 1.5rem 1.3rem;
   max-width:340px;width:100%;
-  box-shadow:0 20px 56px rgba(40,80,140,0.14);
+  box-shadow:0 20px 56px rgba(100,60,10,0.14);
 }
 .modal-eye{
   font-size:0.64rem;letter-spacing:0.22em;text-transform:uppercase;
@@ -241,7 +241,7 @@ header{
   margin-bottom:0.75rem;letter-spacing:-0.01em;
 }
 .modal-preview{
-  background:var(--n0);border:1px solid rgba(100,158,210,0.18);
+  background:var(--n2);border:1px solid rgba(200,168,100,0.18);
   border-radius:10px;padding:0.8rem 0.95rem;
   font-size:0.88rem;color:var(--ink2);line-height:1.7;
   margin-bottom:1.2rem;
@@ -256,14 +256,14 @@ header{
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   transition:border-color 0.15s;
 }
-.btn-cancel:hover{border-color:var(--blue);color:var(--blue)}
+.btn-cancel:hover{border-color:var(--ink3);color:var(--ink2)}
 .btn-del-confirm{
   height:33px;padding:0 1.1rem;border-radius:10px;border:none;
-  background:#d04040;color:#fff;font-size:0.76rem;cursor:pointer;
+  background:#c04040;color:#fff;font-size:0.76rem;cursor:pointer;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
   font-weight:500;letter-spacing:0.04em;transition:background 0.15s;
 }
-.btn-del-confirm:hover{background:#b83535}
+.btn-del-confirm:hover{background:#a83535}
 
 /* ── confetti ── */
 @keyframes burst{
@@ -282,7 +282,7 @@ header{
 .snack{
   position:fixed;bottom:2rem;left:50%;
   transform:translateX(-50%) translateY(80px);
-  background:var(--ink);color:rgba(220,235,252,0.95);
+  background:var(--ink);color:rgba(250,246,235,0.92);
   padding:0.46rem 1.3rem;border-radius:20px;
   font-size:0.7rem;letter-spacing:0.09em;
   transition:transform 0.28s cubic-bezier(.34,1.56,.64,1);
